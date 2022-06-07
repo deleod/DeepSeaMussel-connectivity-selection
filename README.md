@@ -4,12 +4,12 @@
 ## Provides supplementary information on the code used to process and analyze the RADseq data use in this study
 
 Analyses were run locally and/or on the Smithsonian's 
-######QC raw data
+##### QC raw data
 `nohup fastqc L*_plate*.fastq.gz`
 
-##Create file that matches sample IDs to RAD sequencing barcodes
+##### Create file that matches sample IDs to RAD sequencing barcodes
 
-'mkdir barcodes'
+`mkdir barcodes'
 'cd barcodes'
 
 'nano plate3_sample_barcodes.txt
@@ -211,58 +211,61 @@ CGCACTTGAT	FGXCONTROL
 cd ..
 mkdir samples_plate3 samples_plate4
 
-##Combine lane data for each plate
-cat L1_plate3.fastq.gz L2_plate3.fastq.gz L3_plate3.fastq.gz L4_plate3.fastq.gz > Plate3.fastq.gz &
+`
+##### Combine lane data for each plate
+``cat L1_plate3.fastq.gz L2_plate3.fastq.gz L3_plate3.fastq.gz L4_plate3.fastq.gz > Plate3.fastq.gz &
 cat L1_plate4.fastq.gz L2_plate4.fastq.gz L3_plate4.fastq.gz L4_plate4.fastq.gz > Plate4.fastq.gz &
 
+``
+##### Run STACKS process_radtags
+This program examines raw reads from an Illumina sequencing run and first, checks that the barcode and the RAD cutsite are intact, and demultiplexes the data. 
+If there are errors in the barcode or the RAD site within a certain allowance process_radtags can correct them.
+READ MORE: https://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php
 
-##Run STACKS process_radtags
-	## This program examines raw reads from an Illumina sequencing run and first, checks that the barcode and the RAD cutsite are intact, and demultiplexes the data. 
-	## If there are errors in the barcode or the RAD site within a certain allowance process_radtags can correct them.
-	## READ MORE: https://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php
-
-	  ##Ran on HYDRA in interactive mode, due to unknown error in job submission, 
-	  ## Andrea recently added the gcc module load and full paths to the files and got qsub to work though!
-	## Try running process_radtags.job first and specify full paths for all files. If this quits immediately, run in interactive mode
-
-qrsh #enter interactive mode, navigate to working directory
+Ran on HYDRA in interactive mode
+	  
+``qrsh #enter interactive mode, navigate to working directory
 	
 module load gcc/7.3.0
 module load bioinformatics/stacks #load STACKS
 
 process_radtags -f /pool/genomics/deleod/bathymodiolus/Plate3.fastq.gz -o /pool/genomics/deleod/bathymodiolus/samples_plate3/ -b /pool/genomics/deleod/bathymodiolus/barcodes/plate3_sample_barcodes.txt -e pstI --inline_null -r -c -q -i gzfastq > process_radtags_plate3.out &
-	## 383208399 total sequences                                                                                                      
-	## 12661721 barcode not found drops (3.3%)                                                                                       
-	## 273000 low quality read drops (0.1%)                                                                                        
-	## 1759364 RAD cutsite not found drops (0.5%)                                                                                   
-	## 368514314 retained reads (96.2%)   
+``	
+Example of output:
+383208399 total sequences                                                                                                      
+12661721 barcode not found drops (3.3%)                                                                                       
+273000 low quality read drops (0.1%)                                                                                        
+1759364 RAD cutsite not found drops (0.5%)                                                                                   
+368514314 retained reads (96.2%)   
 		                                                                                            
-process_radtags -f /pool/genomics/deleod/bathymodiolus/Plate4.fastq.gz -o /pool/genomics/deleod/bathymodiolus/samples_plate4/ -b /pool/genomics/deleod/bathymodiolus/barcodes/plate4_sample_barcodes.txt -e pstI --inline_null -r -c -q -i gzfastq > process_radtags_plate4.out &
+``process_radtags -f /pool/genomics/deleod/bathymodiolus/Plate4.fastq.gz -o /pool/genomics/deleod/bathymodiolus/samples_plate4/ -b /pool/genomics/deleod/bathymodiolus/barcodes/plate4_sample_barcodes.txt -e pstI --inline_null -r -c -q -i gzfastq > process_radtags_plate4.out &
+``
+output:			  
+381701674 total sequences                                                                                                      
+12117674 barcode not found drops (3.2%)                                                                                       
+71800 low quality read drops (0.1%)                                                                                        
+1794663 RAD cutsite not found drops (0.5%)                                                                                   
+367517537 retained reads (96.3%)                                                                                               
+				  
+##### Breakdown of parameters
+-f /PATH/TO/INPUT/FILE
+-o path to output the processed files  
+-b path to a file containing barcodes for this run
+-c clean data, remove any read with an uncalled base.
+-q discard reads with low quality scores.
+-r rescue barcodes and RAD-Tags.           
+-e provide the restriction enzyme used (cut site occurs on single-end read)
+-i input file type: 'gzfastq' (gzipped fastq)
+--inline_null: barcode is inline with sequence, occurs only on single-end read (default)
+				  
 
-	  ## output:			  
-	  ## 381701674 total sequences                                                                                                      
-	  ## 12117674 barcode not found drops (3.2%)                                                                                       
-	  ## 271800 low quality read drops (0.1%)                                                                                        
-	  ## 1794663 RAD cutsite not found drops (0.5%)                                                                                   
-	  ## 367517537 retained reads (96.3%)                                                                                               
-				  
-			 ## -f /PATH/TO/INPUT/FILE
-			 ## -o path to output the processed files  
-			 ## -b path to a file containing barcodes for this run
-			 ## -c clean data, remove any read with an uncalled base.
-			 ## -q discard reads with low quality scores.
-			 ## -r rescue barcodes and RAD-Tags.           
-			 ## -e provide the restriction enzyme used (cut site occurs on single-end read)
-			 ## -i input file type: 'gzfastq' (gzipped fastq)
-			 ## --inline_null: barcode is inline with sequence, occurs only on single-end read (default)
-				  
-mkdir samples         
+##### Sort files into approriate folders
+For this study, only interested in B.childressi (= G.childressi) and b. heckerae samples
+
+``mkdir samples         
 mv samples_plate3/*.gz ./samples
 mv samples_plate4/*.gz ./samples
 cd samples
-
-#sort files into approriate folders
-## For this study, only interested in B.childressi (= G.childressi) and b. heckerae samples
 
 mkdir Lophelia
 mv JSL-05-489* Lophelia/
@@ -275,3 +278,4 @@ mv CM-001* bheckerae/
 mkdir bchildressi
 mv HRS-1704-CM-0* bchildressi/
 mv MAS* bchildressi/
+``
