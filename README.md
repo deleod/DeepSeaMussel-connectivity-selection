@@ -9,7 +9,7 @@ Analyses were run locally and/or on the Smithsonian's High-Performance Cluster (
 
 ## 1) Processing RADseq data 
 ##### QC raw data
-`nohup fastqc L*_plate*.fastq.gz`
+``nohup fastqc L*_plate*.fastq.gz``
 
 ##### Create file that matches sample IDs to RAD sequencing barcodes
 
@@ -393,6 +393,7 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 
 ``data.run("3456")``
 
+---
 ## 2b) Assembing RADseq data with iPYRAD on the HPC
 
 > Files REQUIRED: 
