@@ -223,9 +223,9 @@ This program examines raw reads from an Illumina sequencing run and first, check
 If there are errors in the barcode or the RAD site within a certain allowance process_radtags can correct them.
 READ MORE: https://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php
 
-Ran on HYDRA in interactive mode
+Ran on HYDRA in interactive mode (qrsh = enter interactive mode, navigate to working directory)
 	  
-``qrsh #enter interactive mode, navigate to working directory
+``qrsh 
 	
 module load gcc/7.3.0
 module load bioinformatics/stacks #load STACKS
@@ -249,15 +249,15 @@ output:
 367517537 retained reads (96.3%)                                                                                               
 				  
 ##### Breakdown of parameters
--f /PATH/TO/INPUT/FILE
--o path to output the processed files  
--b path to a file containing barcodes for this run
--c clean data, remove any read with an uncalled base.
--q discard reads with low quality scores.
--r rescue barcodes and RAD-Tags.           
--e provide the restriction enzyme used (cut site occurs on single-end read)
--i input file type: 'gzfastq' (gzipped fastq)
---inline_null: barcode is inline with sequence, occurs only on single-end read (default)
+> -f /PATH/TO/INPUT/FILE
+> -o path to output the processed files  
+> -b path to a file containing barcodes for this run
+> -c clean data, remove any read with an uncalled base.
+> -q discard reads with low quality scores.
+> -r rescue barcodes and RAD-Tags.           
+> -e provide the restriction enzyme used (cut site occurs on single-end read)
+> -i input file type: 'gzfastq' (gzipped fastq)
+> --inline_null: barcode is inline with sequence, occurs only on single-end read (default)
 				  
 
 ##### Sort files into approriate folders
