@@ -283,7 +283,7 @@ mkdir bchildressi
 mv HRS-1704-CM-0* bchildressi/
 mv MAS* bchildressi/
 ``
-## 2) Assembing RADseq data with iPYRAD
+## 2a) Assembing RADseq data with iPYRAD locally with jupyter notebooks
 
 > Optional: create new environment and download packages there
 > environment location: /Users/Odontodactylus/miniconda2/envs/myenv
@@ -330,8 +330,8 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 > 	2   raw_fastq_path                                                           
 > 	3   barcodes_path                                                            
 > 	4   sorted_fastq_path           ./fastq/*fq.gz                               
-> 	5   assembly_method             denovo                                       
-> 	6   reference_sequence                                                       
+> 	5   assembly_method             reference                                       
+> 	6   reference_sequence          /pool/genomics/deleod/bathymodiolus/GCA_002080005.1_Bpl_v1.0_genomic.fna                                             
 > 	7   datatype                    rad                                          
 > 	8   restriction_overhang        ('TGCAG', '')                                
 > 	9   max_low_qual_bases          5                                            
@@ -349,7 +349,7 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 > 	21  min_samples_locus           51                                           
 > 	22  max_SNPs_locus              0.2                                          
 > 	23  max_Indels_locus            8                                            
-> 	24  max_shared_Hs_locus         0.25                                         
+> 	24  max_shared_Hs_locus         0.50                                         
 > 	25  trim_reads                  (0, 0, 0, 0)                                 
 > 	26  trim_loci                   (0, 0, 0, 0)                                 
 > 	27  output_formats              ['p', 's', 'v', 'n', 'k', 'u']               
@@ -371,3 +371,40 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 > Note: Step 3 & 6 are the “clustering” steps, most data intensive part - will take a while
 
 ``data.run("3456")``
+
+## 2b) Assembing RADseq data with iPYRAD on the HPC
+
+> Files REQUIRED: 
+> 
+> 1) params.txt
+> Edit ipyrad parameters file in working directory 
+> update all paths to fastq files and working directories 
+> 
+> 2) ipyrad.job
+> again, update all paths 
+> 
+> See example files
+
+##### Run iPYRAD 
+``qsub ipyrad.job``
+
+##### Check output/progress log
+``less ipyrad.log``
+
+##### OPTIONAL: To re-run removing specific samples & low read samples
+> create a new branch assembly called "subdata" including only the samples listed in the file samples_to_keep.txt
+
+``ipyrad -p params.txt -b subdata samples_to_keep.txt``
+
+>  loading Assembly: bchildressi
+>  from saved path: /pool/genomics/deleod/bathymodiolus/samples/bchildressi/bchildressi.json
+>  creating a new branch called 'subdata' with 70 Samples
+>  writing new params file to params-subdata.txt
+  
+##### Then edit the desired parameters in the newly generated parameters file
+``nano params-subdata.txt ``
+
+##### Then resubmit job, running only the steps needed (this will depend on the parameters you change)
+https://ipyrad.readthedocs.io/en/latest/6-params.html
+
+``ipyrad -p params-subdata.txt -d -s 34567 -f -c $NSLOTS``
