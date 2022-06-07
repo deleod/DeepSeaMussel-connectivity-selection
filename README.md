@@ -11,10 +11,10 @@ Analyses were run locally and/or on the Smithsonian's High-Performance Cluster (
 
 ##### Create file that matches sample IDs to RAD sequencing barcodes
 
-`mkdir barcodes'
-'cd barcodes'
+``mkdir barcodes
+cd barcodes``
 
-'nano plate3_sample_barcodes.txt
+``nano plate3_sample_barcodes.txt
 TCCGGAGCGC	RB-19-114
 CTAACACGGC	RB-19-115
 AGCTTCGATT	RB-19-116
@@ -110,9 +110,9 @@ GCGTCAGATG	CM-00167
 AATGAATCAG	CM-00168
 ATTAGGAGGC	CM-00169
 TTCTTCAGAC	CM-00158
-CGCACTTGAT	FGXCONTROL'
+CGCACTTGAT	FGXCONTROL``
 
-nano plate4_sample_barcodes.txt
+``nano plate4_sample_barcodes.txt
 TCCGGAGCGC	MASm32
 CTAACACGGC	MASm36
 AGCTTCGATT	HRS-1704-CM-004
@@ -208,16 +208,15 @@ GCGTCAGATG	JSL-05-4893-02
 AATGAATCAG	JSL-05-4894-04
 ATTAGGAGGC	JSL-05-4894-18
 TTCTTCAGAC	JSL-05-4894-23
-CGCACTTGAT	FGXCONTROL
+CGCACTTGAT	FGXCONTROL``
 
-cd ..
-mkdir samples_plate3 samples_plate4
+``cd ..
+mkdir samples_plate3 samples_plate4``
 
-`
+
 ##### Combine lane data for each plate
 ``cat L1_plate3.fastq.gz L2_plate3.fastq.gz L3_plate3.fastq.gz L4_plate3.fastq.gz > Plate3.fastq.gz &
 cat L1_plate4.fastq.gz L2_plate4.fastq.gz L3_plate4.fastq.gz L4_plate4.fastq.gz > Plate4.fastq.gz &
-
 ``
 ##### Run STACKS process_radtags
 This program examines raw reads from an Illumina sequencing run and first, checks that the barcode and the RAD cutsite are intact, and demultiplexes the data. 
@@ -226,30 +225,33 @@ READ MORE: https://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php
 
 Ran on HYDRA in interactive mode (qrsh = enter interactive mode, navigate to working directory)
 	  
-``qrsh 
+``qrsh`` 
 	
-module load gcc/7.3.0
-module load bioinformatics/stacks #load STACKS
+``module load gcc/7.3.0
+module load bioinformatics/stacks`` #load STACKS
 
-process_radtags -f /pool/genomics/deleod/bathymodiolus/Plate3.fastq.gz -o /pool/genomics/deleod/bathymodiolus/samples_plate3/ -b /pool/genomics/deleod/bathymodiolus/barcodes/plate3_sample_barcodes.txt -e pstI --inline_null -r -c -q -i gzfastq > process_radtags_plate3.out &
+``process_radtags -f /pool/genomics/deleod/bathymodiolus/Plate3.fastq.gz -o /pool/genomics/deleod/bathymodiolus/samples_plate3/ -b /pool/genomics/deleod/bathymodiolus/barcodes/plate3_sample_barcodes.txt -e pstI --inline_null -r -c -q -i gzfastq > process_radtags_plate3.out &
 ``	
-Example of output:
-383208399 total sequences                                                                                                      
-12661721 barcode not found drops (3.3%)                                                                                       
-273000 low quality read drops (0.1%)                                                                                        
-1759364 RAD cutsite not found drops (0.5%)                                                                                   
-368514314 retained reads (96.2%)   
+> Example of output:
+> 
+> 383208399 total sequences                                                                                                      
+> 12661721 barcode not found drops (3.3%)                                                                                       
+> 273000 low quality read drops (0.1%)                                                                                        
+> 1759364 RAD cutsite not found drops (0.5%)                                                                                   
+> 368514314 retained reads (96.2%)   
 		                                                                                            
 ``process_radtags -f /pool/genomics/deleod/bathymodiolus/Plate4.fastq.gz -o /pool/genomics/deleod/bathymodiolus/samples_plate4/ -b /pool/genomics/deleod/bathymodiolus/barcodes/plate4_sample_barcodes.txt -e pstI --inline_null -r -c -q -i gzfastq > process_radtags_plate4.out &
 ``
-output:			  
-381701674 total sequences                                                                                                      
-12117674 barcode not found drops (3.2%)                                                                                       
-71800 low quality read drops (0.1%)                                                                                        
-1794663 RAD cutsite not found drops (0.5%)                                                                                   
-367517537 retained reads (96.3%)                                                                                               
+> output:
+> 			  
+> 381701674 total sequences                                                                                                      
+> 12117674 barcode not found drops (3.2%)                                                                                       
+> 71800 low quality read drops (0.1%)                                                                                        
+> 1794663 RAD cutsite not found drops (0.5%)                                                                                   
+> 367517537 retained reads (96.3%)                                                                                               
 				  
 ##### Breakdown of parameters
+
 > -f /PATH/TO/INPUT/FILE
 > -o path to output the processed files  
 > -b path to a file containing barcodes for this run
@@ -321,7 +323,8 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 
 ``data.get_params()``
 
-> example of output
+> example of output:
+> 
 > 	0   assembly_name               bathymodiolus                                
 > 	1   project_dir                 ~/Smithsonian/bathymodiolus                  
 > 	2   raw_fastq_path                                                           
