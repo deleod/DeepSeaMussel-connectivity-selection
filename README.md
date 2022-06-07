@@ -1,9 +1,11 @@
 # Genetic diversity and connectivity of chemosynthetic cold seep mussels from the U.S. Atlantic margin
-# Supplementary code for DeLeo et al. 2022 (https://doi.org/10.1186/s12862-022-02027-4)
+### Supplementary code for DeLeo et al. 2022 (https://doi.org/10.1186/s12862-022-02027-4)
 
-## Provides supplementary information on the code used to process and analyze the RADseq data use in this study
+### Provides supplementary information on the code used to process and analyze the RADseq data use in this study
 
 Analyses were run locally and/or on the Smithsonian's High-Performance Cluster (HPC) Hydra
+
+----
 
 ## 1) Processing RADseq data 
 ##### QC raw data
@@ -11,10 +13,12 @@ Analyses were run locally and/or on the Smithsonian's High-Performance Cluster (
 
 ##### Create file that matches sample IDs to RAD sequencing barcodes
 
-``mkdir barcodes
-cd barcodes``
+`mkdir barcodes`
 
-``nano plate3_sample_barcodes.txt
+`cd barcodes`
+
+`nano plate3_sample_barcodes.txt`
+
 TCCGGAGCGC	RB-19-114
 CTAACACGGC	RB-19-115
 AGCTTCGATT	RB-19-116
@@ -110,9 +114,10 @@ GCGTCAGATG	CM-00167
 AATGAATCAG	CM-00168
 ATTAGGAGGC	CM-00169
 TTCTTCAGAC	CM-00158
-CGCACTTGAT	FGXCONTROL``
+CGCACTTGAT	FGXCONTROL
 
-``nano plate4_sample_barcodes.txt
+`nano plate4_sample_barcodes.txt`
+
 TCCGGAGCGC	MASm32
 CTAACACGGC	MASm36
 AGCTTCGATT	HRS-1704-CM-004
@@ -208,30 +213,32 @@ GCGTCAGATG	JSL-05-4893-02
 AATGAATCAG	JSL-05-4894-04
 ATTAGGAGGC	JSL-05-4894-18
 TTCTTCAGAC	JSL-05-4894-23
-CGCACTTGAT	FGXCONTROL``
+CGCACTTGAT	FGXCONTROL
 
-``cd ..
-mkdir samples_plate3 samples_plate4``
+`cd ..`
+
+`mkdir samples_plate3 samples_plate4`
 
 
 ##### Combine lane data for each plate
-``cat L1_plate3.fastq.gz L2_plate3.fastq.gz L3_plate3.fastq.gz L4_plate3.fastq.gz > Plate3.fastq.gz &
-cat L1_plate4.fastq.gz L2_plate4.fastq.gz L3_plate4.fastq.gz L4_plate4.fastq.gz > Plate4.fastq.gz &
-``
+`cat L1_plate3.fastq.gz L2_plate3.fastq.gz L3_plate3.fastq.gz L4_plate3.fastq.gz > Plate3.fastq.gz &` 
+
+`cat L1_plate4.fastq.gz L2_plate4.fastq.gz L3_plate4.fastq.gz L4_plate4.fastq.gz > Plate4.fastq.gz &`
+
 ##### Run STACKS process_radtags
-This program examines raw reads from an Illumina sequencing run and first, checks that the barcode and the RAD cutsite are intact, and demultiplexes the data. 
-If there are errors in the barcode or the RAD site within a certain allowance process_radtags can correct them.
-READ MORE: https://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php
+> This program examines raw reads from an Illumina sequencing run and first, checks that the barcode and the RAD cutsite are intact, and demultiplexes the data. 
+> If there are errors in the barcode or the RAD site within a certain allowance process_radtags can correct them.
+> READ MORE: https://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php
 
 Ran on HYDRA in interactive mode (qrsh = enter interactive mode, navigate to working directory)
 	  
-``qrsh`` 
-	
-``module load gcc/7.3.0
-module load bioinformatics/stacks`` #load STACKS
+`qrsh` 
 
-``process_radtags -f /pool/genomics/deleod/bathymodiolus/Plate3.fastq.gz -o /pool/genomics/deleod/bathymodiolus/samples_plate3/ -b /pool/genomics/deleod/bathymodiolus/barcodes/plate3_sample_barcodes.txt -e pstI --inline_null -r -c -q -i gzfastq > process_radtags_plate3.out &
-``	
+`module load gcc/7.3.0`
+
+`module load bioinformatics/stacks` #load STACKS
+
+`process_radtags -f /pool/genomics/deleod/bathymodiolus/Plate3.fastq.gz -o /pool/genomics/deleod/bathymodiolus/samples_plate3/ -b /pool/genomics/deleod/bathymodiolus/barcodes/plate3_sample_barcodes.txt -e pstI --inline_null -r -c -q -i gzfastq > process_radtags_plate3.out &`
 > Example of output:
 > 
 > 383208399 total sequences                                                                                                      
@@ -266,23 +273,37 @@ module load bioinformatics/stacks`` #load STACKS
 ##### Sort files into approriate folders
 For this study, only interested in B.childressi (= G.childressi) and b. heckerae samples
 
-``mkdir samples         
-mv samples_plate3/*.gz ./samples
-mv samples_plate4/*.gz ./samples
-cd samples
+`mkdir samples`
 
-mkdir Lophelia
-mv JSL-05-489* Lophelia/
-mkdir desmophylum
-mv CM-002* desmophylum/
-mkdir bheckerae
-mv HRS-1704-CM-35* bheckerae/
-mv RB-19-1* bheckerae/
-mv CM-001* bheckerae/
-mkdir bchildressi
-mv HRS-1704-CM-0* bchildressi/
-mv MAS* bchildressi/
-``
+`mv samples_plate3/*.gz ./samples`
+
+`mv samples_plate4/*.gz ./samples`
+
+`cd samples`
+
+`mkdir Lophelia`
+
+`mv JSL-05-489* Lophelia/`
+
+`mkdir desmophylum`
+
+`mv CM-002* desmophylum/`
+
+`mkdir bheckerae`
+
+`mv HRS-1704-CM-35* bheckerae/`
+
+`mv RB-19-1* bheckerae/`
+
+`mv CM-001* bheckerae/`
+
+`mkdir bchildressi`
+
+`mv HRS-1704-CM-0* bchildressi/`
+
+`mv MAS* bchildressi/`
+
+----
 ## 2a) Assembing RADseq data with iPYRAD locally with jupyter notebooks
 
 > Optional: create new environment and download packages there
