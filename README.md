@@ -3,7 +3,8 @@
 
 ## Provides supplementary information on the code used to process and analyze the RADseq data use in this study
 
-Analyses were run locally and/or on the Smithsonian's 
+Analyses were run locally and/or on the Smithsonian's High-Performance Cluster (HPC) Hydra
+
 ##### QC raw data
 `nohup fastqc L*_plate*.fastq.gz`
 
