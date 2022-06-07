@@ -5,6 +5,7 @@
 
 Analyses were run locally and/or on the Smithsonian's High-Performance Cluster (HPC) Hydra
 
+## 1) Processing RADseq data 
 ##### QC raw data
 `nohup fastqc L*_plate*.fastq.gz`
 
@@ -280,3 +281,90 @@ mkdir bchildressi
 mv HRS-1704-CM-0* bchildressi/
 mv MAS* bchildressi/
 ``
+## 2) Assembing RADseq data with iPYRAD
+
+> Optional: create new environment and download packages there
+> environment location: /Users/Odontodactylus/miniconda2/envs/myenv
+
+``conda create --name myenv
+conda activate myenv``
+
+##### Install required packages 
+conda install ipyrad -c conda-forge -c bioconda
+conda install notebook -c conda-forge
+conda install toytree -c conda-forge
+conda install sra-tools -c bioconda
+conda install entrez-direct -c bioconda
+conda install mpi4py -c conda-forge
+
+##### launch jupyter notebook#
+jupyter notebook 
+
+> Optional: In a seperate terminal window run ipcluster
+> This will essentially start a number of independent Python processes (kernels) which we can then send bits of work to do. 
+
+``ipcluster start --n=20``
+> n = max number of cores you want to use
+> 
+##### Create an Assembly object
+> This object stores the parameters of the assembly and the organization of data files.
+
+``data = ip.Assembly("bathymodiolus")
+data.set_params("project_dir", "/Users/Odontodactylus/Smithsonian/bathymodiolus")
+data.set_params("sorted_fastq_path", "./fastq/*fq.gz")
+data.set_params("clust_threshold", "0.95")
+data.set_params("min_samples_locus", "51")
+data.set_params("max_alleles_consens", 2)
+data.set_params("max_shared_Hs_locus", "0.25")
+data.set_params("filter_adapters", "2")
+data.set_params("output_formats", ("p","s","v","n","k", "u"))``
+
+``data.get_params()``
+
+> example of output
+> #	0   assembly_name               bathymodiolus                                
+> #	1   project_dir                 ~/Smithsonian/bathymodiolus                  
+> #	2   raw_fastq_path                                                           
+> #	3   barcodes_path                                                            
+> #	4   sorted_fastq_path           ./fastq/*fq.gz                               
+> #	5   assembly_method             denovo                                       
+> #	6   reference_sequence                                                       
+> #	7   datatype                    rad                                          
+> #	8   restriction_overhang        ('TGCAG', '')                                
+> #	9   max_low_qual_bases          5                                            
+> #	10  phred_Qscore_offset         33                                           
+> #	11  mindepth_statistical        6                                            
+> #	12  mindepth_majrule            6                                            
+> #	13  maxdepth                    10000                                        
+> #	14  clust_threshold             0.85                                         
+> #	15  max_barcode_mismatch        0                                            
+> #	16  filter_adapters             2                                            
+> #	17  filter_min_trim_len         35                                           
+> #	18  max_alleles_consens         2                                            
+> #	19  max_Ns_consens              0.05                                         
+> #	20  max_Hs_consens              0.05                                         
+> #	21  min_samples_locus           51                                           
+> #	22  max_SNPs_locus              0.2                                          
+> #	23  max_Indels_locus            8                                            
+> #	24  max_shared_Hs_locus         0.25                                         
+> #	25  trim_reads                  (0, 0, 0, 0)                                 
+> #	26  trim_loci                   (0, 0, 0, 0)                                 
+> #	27  output_formats              ['p', 's', 'v', 'n', 'k', 'u']               
+> #	28  pop_assign_file                                                          
+> #	29  reference_as_filter
+
+###### Run iPYRAD
+``data.run("1234567")``
+
+> Alternatively, run steps separately, to check steps
+
+##### run steps 1 & 2 of the assembly
+``data.run("12")``
+
+##### check the stats of the assembly (so far) from the .stats attribute
+``data.stats``
+
+##### run steps 3-6 of the assembly
+> Note: Step 3 & 6 are the “clustering” steps, most data intensive part - will take a while
+
+``data.run("3456")``
