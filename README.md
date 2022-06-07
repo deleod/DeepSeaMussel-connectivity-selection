@@ -322,36 +322,36 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 ``data.get_params()``
 
 > example of output
-> #	0   assembly_name               bathymodiolus                                
-> #	1   project_dir                 ~/Smithsonian/bathymodiolus                  
-> #	2   raw_fastq_path                                                           
-> #	3   barcodes_path                                                            
-> #	4   sorted_fastq_path           ./fastq/*fq.gz                               
-> #	5   assembly_method             denovo                                       
-> #	6   reference_sequence                                                       
-> #	7   datatype                    rad                                          
-> #	8   restriction_overhang        ('TGCAG', '')                                
-> #	9   max_low_qual_bases          5                                            
-> #	10  phred_Qscore_offset         33                                           
-> #	11  mindepth_statistical        6                                            
-> #	12  mindepth_majrule            6                                            
-> #	13  maxdepth                    10000                                        
-> #	14  clust_threshold             0.85                                         
-> #	15  max_barcode_mismatch        0                                            
-> #	16  filter_adapters             2                                            
-> #	17  filter_min_trim_len         35                                           
-> #	18  max_alleles_consens         2                                            
-> #	19  max_Ns_consens              0.05                                         
-> #	20  max_Hs_consens              0.05                                         
-> #	21  min_samples_locus           51                                           
-> #	22  max_SNPs_locus              0.2                                          
-> #	23  max_Indels_locus            8                                            
-> #	24  max_shared_Hs_locus         0.25                                         
-> #	25  trim_reads                  (0, 0, 0, 0)                                 
-> #	26  trim_loci                   (0, 0, 0, 0)                                 
-> #	27  output_formats              ['p', 's', 'v', 'n', 'k', 'u']               
-> #	28  pop_assign_file                                                          
-> #	29  reference_as_filter
+> 	0   assembly_name               bathymodiolus                                
+> 	1   project_dir                 ~/Smithsonian/bathymodiolus                  
+> 	2   raw_fastq_path                                                           
+> 	3   barcodes_path                                                            
+> 	4   sorted_fastq_path           ./fastq/*fq.gz                               
+> 	5   assembly_method             denovo                                       
+> 	6   reference_sequence                                                       
+> 	7   datatype                    rad                                          
+> 	8   restriction_overhang        ('TGCAG', '')                                
+> 	9   max_low_qual_bases          5                                            
+> 	10  phred_Qscore_offset         33                                           
+> 	11  mindepth_statistical        6                                            
+> 	12  mindepth_majrule            6                                            
+> 	13  maxdepth                    10000                                        
+> 	14  clust_threshold             0.85                                         
+> 	15  max_barcode_mismatch        0                                            
+> 	16  filter_adapters             2                                            
+> 	17  filter_min_trim_len         35                                           
+> 	18  max_alleles_consens         2                                            
+> 	19  max_Ns_consens              0.05                                         
+> 	20  max_Hs_consens              0.05                                         
+> 	21  min_samples_locus           51                                           
+> 	22  max_SNPs_locus              0.2                                          
+> 	23  max_Indels_locus            8                                            
+> 	24  max_shared_Hs_locus         0.25                                         
+> 	25  trim_reads                  (0, 0, 0, 0)                                 
+> 	26  trim_loci                   (0, 0, 0, 0)                                 
+> 	27  output_formats              ['p', 's', 'v', 'n', 'k', 'u']               
+> 	28  pop_assign_file                                                          
+> 	29  reference_as_filter
 
 ###### Run iPYRAD
 ``data.run("1234567")``
