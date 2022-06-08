@@ -1,0 +1,23 @@
+# /bin/sh
+# ----------------Parameters---------------------- #
+#$ -S /bin/sh
+#$ -q mThM.q
+#$ -pe mthread 12
+#$ -l mres=50G,h_data=50G,h_vmem=50G,himem
+#$ -cwd
+#$ -j y
+#$ -N ipyrad
+#$ -o ipyrad.log
+#
+# ----------------Modules------------------------- #
+module load bioinformatics/ipyrad/0.9
+#
+# ----------------Your Commands------------------- #
+#
+echo + `date` job $JOB_NAME started in $QUEUE with jobID=$JOB_ID on $HOSTNAME
+#
+ipyrad -p params.txt -s 1234567 -c $NSLOTS
+#ipyrad -p params.txt -r
+#ipyrad -p params.txt -d -s 67 -c $NSLOTS
+#
+echo = `date` job $JOB_NAME done
