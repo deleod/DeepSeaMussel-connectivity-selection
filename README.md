@@ -1,7 +1,7 @@
 # Genetic diversity and connectivity of chemosynthetic cold seep mussels from the U.S. Atlantic margin
 ### Supplementary code for DeLeo et al. 2022 (https://doi.org/10.1186/s12862-022-02027-4)
 
-### Provides supplementary information on the code used to process and analyze the RADseq data use in this study
+### Provides supplementary information on the code used to process and analyze the RADseq data used in this study
 
 Analyses were run locally and/or on the Smithsonian's High-Performance Cluster (HPC) Hydra
 
@@ -19,7 +19,7 @@ Analyses were run locally and/or on the Smithsonian's High-Performance Cluster (
 
 `nano plate3_sample_barcodes.txt`
 
-TCCGGAGCGC	RB-19-114
+`TCCGGAGCGC	RB-19-114
 CTAACACGGC	RB-19-115
 AGCTTCGATT	RB-19-116
 TCGCCGCAAT	RB-19-117
@@ -114,7 +114,7 @@ GCGTCAGATG	CM-00167
 AATGAATCAG	CM-00168
 ATTAGGAGGC	CM-00169
 TTCTTCAGAC	CM-00158
-CGCACTTGAT	FGXCONTROL
+CGCACTTGAT	FGXCONTROL`
 
 `nano plate4_sample_barcodes.txt`
 
@@ -271,7 +271,7 @@ Ran on HYDRA in interactive mode (qrsh = enter interactive mode, navigate to wor
 				  
 
 ##### Sort files into approriate folders
-For this study, only interested in B.childressi (= G.childressi) and b. heckerae samples
+For this study, only interested in *B. childressi* (= *G. childressi*) and *B. heckerae* samples
 
 `mkdir samples`
 
@@ -320,8 +320,8 @@ conda install sra-tools -c bioconda
 conda install entrez-direct -c bioconda
 conda install mpi4py -c conda-forge
 
-##### launch jupyter notebook#
-jupyter notebook 
+##### launch jupyter notebook
+`jupyter notebook` 
 
 > Optional: In a seperate terminal window run ipcluster
 > This will essentially start a number of independent Python processes (kernels) which we can then send bits of work to do. 
@@ -377,12 +377,12 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 > 	28  pop_assign_file                                                          
 > 	29  reference_as_filter
 
-###### Run iPYRAD
+##### Run iPYRAD
 ``data.run("1234567")``
 
 > Alternatively, run steps separately, to check steps
 
-##### run steps 1 & 2 of the assembly
+##### OPTIONAL: run steps 1 & 2 of the assembly
 ``data.run("12")``
 
 ##### check the stats of the assembly (so far) from the .stats attribute
@@ -405,7 +405,7 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 > 2) ipyrad.job
 > again, update all paths 
 > 
-> See example files
+> See example files..
 
 ##### Run iPYRAD 
 ``qsub ipyrad.job``
@@ -418,6 +418,7 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 
 ``ipyrad -p params.txt -b subdata samples_to_keep.txt``
 
+> output:
 >  loading Assembly: bchildressi
 >  from saved path: /pool/genomics/deleod/bathymodiolus/samples/bchildressi/bchildressi.json
 >  creating a new branch called 'subdata' with 70 Samples
