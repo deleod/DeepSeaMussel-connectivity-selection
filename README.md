@@ -431,3 +431,15 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 https://ipyrad.readthedocs.io/en/latest/6-params.html
 
 ``ipyrad -p params-subdata.txt -d -s 34567 -f -c $NSLOTS``
+
+---
+## 3) Downstream genetic analyses were done in RStudio
+
+See corresponding .R files for guidance on how to run these analyses and which packages need to be installed
+
+1. Gchildressi.R
+2. Bheckerae.R
+3. Bathy_selection.R
+4. Gchildressi_sequoia.R
+
+> File conversions and subsetting were run locally in terminal using PLINK, which also requires installation (https://www.cog-genomics.org/plink/)
