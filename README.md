@@ -258,17 +258,20 @@ Ran on HYDRA in interactive mode (qrsh = enter interactive mode, navigate to wor
 > 367517537 retained reads (96.3%)                                                                                               
 				  
 ##### Breakdown of parameters
-
-> -f /PATH/TO/INPUT/FILE
-> -o path to output the processed files  
-> -b path to a file containing barcodes for this run
-> -c clean data, remove any read with an uncalled base.
-> -q discard reads with low quality scores.
-> -r rescue barcodes and RAD-Tags.           
-> -e provide the restriction enzyme used (cut site occurs on single-end read)
-> -i input file type: 'gzfastq' (gzipped fastq)
-> --inline_null: barcode is inline with sequence, occurs only on single-end read (default)
-				  
+> | Parameter | Description |
+> | --- | --- |
+> | -f | /PATH/TO/INPUT/FILE |
+> | -o | path to output the processed files |
+> | -b | path to a file containing barcodes for this run |
+> | -c | clean data, remove any read with an uncalled base. |
+> | -q | discard reads with low quality scores. |
+> | -r | rescue barcodes and RAD-Tags. |
+> | -e | provide the restriction enzyme used (cut site occurs on single-end read) |
+> | -i | input file type: 'gzfastq' (gzipped fastq) |
+> | --inline_null: | barcode is inline with sequence, occurs only on single-end read (default) | 
+		  
+		  
+		  
 
 ##### Sort files into approriate folders
 For this study, only interested in *B. childressi* (= *G. childressi*) and *B. heckerae* samples
@@ -313,12 +316,18 @@ For this study, only interested in *B. childressi* (= *G. childressi*) and *B. h
 conda activate myenv``
 
 ##### Install required packages 
-conda install ipyrad -c conda-forge -c bioconda
-conda install notebook -c conda-forge
-conda install toytree -c conda-forge
-conda install sra-tools -c bioconda
-conda install entrez-direct -c bioconda
-conda install mpi4py -c conda-forge
+`conda install ipyrad -c conda-forge -c bioconda`
+
+`conda install notebook -c conda-forge`
+
+`conda install toytree -c conda-forge`
+
+`conda install sra-tools -c bioconda`
+
+`conda install entrez-direct -c bioconda`
+
+`conda install mpi4py -c conda-forge`
+
 
 ##### launch jupyter notebook
 `jupyter notebook` 
@@ -332,15 +341,23 @@ conda install mpi4py -c conda-forge
 ##### Create an Assembly object
 > This object stores the parameters of the assembly and the organization of data files.
 
-``data = ip.Assembly("bathymodiolus")
-data.set_params("project_dir", "/Users/Odontodactylus/Smithsonian/bathymodiolus")
-data.set_params("sorted_fastq_path", "./fastq/*fq.gz")
-data.set_params("clust_threshold", "0.95")
-data.set_params("min_samples_locus", "51")
-data.set_params("max_alleles_consens", 2)
-data.set_params("max_shared_Hs_locus", "0.25")
-data.set_params("filter_adapters", "2")
-data.set_params("output_formats", ("p","s","v","n","k", "u"))``
+`data = ip.Assembly("bathymodiolus")`
+
+`data.set_params("project_dir", "/Users/Odontodactylus/Smithsonian/bathymodiolus")`
+
+`data.set_params("sorted_fastq_path", "./fastq/*fq.gz")`
+
+`data.set_params("clust_threshold", "0.95")`
+
+`data.set_params("min_samples_locus", "51")`
+
+`data.set_params("max_alleles_consens", 2)`
+
+`data.set_params("max_shared_Hs_locus", "0.25")`
+
+`data.set_params("filter_adapters", "2")`
+
+`data.set_params("output_formats", ("p","s","v","n","k", "u"))`
 
 ``data.get_params()``
 
@@ -399,11 +416,13 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 > Files REQUIRED: 
 > 
 > 1) params.txt
-> Edit ipyrad parameters file in working directory 
-> update all paths to fastq files and working directories 
+> 
+> * Edit ipyrad parameters file in working directory 	
+> * update all paths to fastq files and working directories 
 > 
 > 2) ipyrad.job
-> again, update all paths 
+> 
+> * again, update all paths 
 > 
 > See example files..
 
@@ -419,9 +438,13 @@ data.set_params("output_formats", ("p","s","v","n","k", "u"))``
 ``ipyrad -p params.txt -b subdata samples_to_keep.txt``
 
 > output:
+> 
 >  loading Assembly: bchildressi
+>  
 >  from saved path: /pool/genomics/deleod/bathymodiolus/samples/bchildressi/bchildressi.json
+>  
 >  creating a new branch called 'subdata' with 70 Samples
+>  
 >  writing new params file to params-subdata.txt
   
 ##### Then edit the desired parameters in the newly generated parameters file
