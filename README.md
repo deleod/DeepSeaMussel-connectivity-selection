@@ -1,5 +1,5 @@
 # Genetic diversity and connectivity of chemosynthetic cold seep mussels from the U.S. Atlantic margin
-### Supplementary code for DeLeo et al. 2022 (https://doi.org/10.1186/s12862-022-02027-4)
+### Code for DeLeo et al. 2022 (https://doi.org/10.1186/s12862-022-02027-4)
 
 ### Provides information on the code used to process and analyze the RADseq data used in this study
 
