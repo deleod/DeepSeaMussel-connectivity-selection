@@ -1,7 +1,7 @@
 # Genetic diversity and connectivity of chemosynthetic cold seep mussels from the U.S. Atlantic margin
 ### Code for DeLeo et al. 2022 (https://doi.org/10.1186/s12862-022-02027-4)
 
-### Provides information on the code used to process and analyze the RADseq data used in this study
+### Provides information on the code used to process and analyze the RADseq data from this study
 
 Analyses were run locally and/or on the Smithsonian's High-Performance Cluster (HPC) Hydra
 
