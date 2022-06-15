@@ -3,6 +3,8 @@
 
 ### Provides information on the code used to process and analyze the RADseq data from this study
 
+Please feel free to cite the publication as reference to replicated methods
+
 Analyses were run locally and/or on the Smithsonian's High-Performance Cluster (HPC) Hydra
 
 ----
